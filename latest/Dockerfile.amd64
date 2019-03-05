@@ -1,4 +1,4 @@
-FROM webhippie/nginx:latest@sha256:9397a7476c1f05171c3c3a893d55e37aec0327ba3c0ac6fef8f0758a3c1a9fa2
+FROM webhippie/nginx:latest@sha256:20fda3691b3061d02525f16a5127ea4f9de1a43819a834c5a0d3ad5efba82689
 
 LABEL maintainer="Thomas Boerger <thomas@webhippie.de>" \
   org.label-schema.name="PHP Nginx" \
