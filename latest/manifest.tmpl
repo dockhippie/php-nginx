@@ -1,0 +1,19 @@
+image: webhippie/php-nginx:latest
+manifests:
+  -
+    image: webhippie/php-nginx:latest-amd64
+    platform:
+      architecture: amd64
+      os: linux
+  -
+    image: webhippie/php-nginx:latest-arm64v8
+    platform:
+      architecture: arm64
+      os: linux
+      variant: v8
+  -
+    image: webhippie/php-nginx:latest-arm32v6
+    platform:
+      architecture: arm
+      os: linux
+      variant: v6
