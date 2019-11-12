@@ -1,4 +1,4 @@
-FROM webhippie/nginx:latest
+FROM webhippie/nginx:latest-amd64
 
 LABEL maintainer="Thomas Boerger <thomas@webhippie.de>" \
   org.label-schema.name="PHP Nginx" \
