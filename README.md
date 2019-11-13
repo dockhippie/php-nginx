@@ -3,7 +3,7 @@
 [![Build Status](https://cloud.drone.io/api/badges/dockhippie/php-nginx/status.svg)](https://cloud.drone.io/dockhippie/php-nginx)
 [![](https://images.microbadger.com/badges/image/webhippie/php-nginx.svg)](https://microbadger.com/images/webhippie/php-nginx "Get your own image badge on microbadger.com")
 
-These are docker images for [PHP](https://secure.php.net) on Nginx running on a [Alpine container](https://registry.hub.docker.com/u/webhippie/alpine/).
+These are docker images for [PHP](https://secure.php.net) on Nginx running on a [Nginx container](https://registry.hub.docker.com/u/webhippie/nginx/).
 
 
 ## Versions
