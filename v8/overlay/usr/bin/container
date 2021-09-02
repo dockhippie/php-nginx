@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -eo pipefail
+source /usr/bin/entrypoint
+
+for FILE in $(find /etc/container.d -type f -iname \*.sh | sort); do
+    source ${FILE}
+done
+
+container-nginx &
+P2=$!
+
+container-php &
+P1=$!
+
+wait -n ${P1} ${P2}

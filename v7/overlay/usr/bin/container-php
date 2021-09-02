@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eo pipefail
+source /usr/bin/entrypoint
+
+pushd ${NGINX_WEBROOT} >/dev/null
+    echo "> starting php service"
+    exec php-fpm7
+popd >/dev/null
