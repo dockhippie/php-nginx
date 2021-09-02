@@ -1,4 +1,4 @@
-FROM webhippie/nginx:latest-amd64
+FROM webhippie/nginx:latest-arm
 
 VOLUME ["/etc/php8/custom.d"]
 EXPOSE 8080
