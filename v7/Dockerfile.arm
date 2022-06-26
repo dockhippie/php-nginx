@@ -1,4 +1,4 @@
-FROM webhippie/nginx:latest-arm@sha256:42cbedfeb4a74ce0b23c0ff65a0aba0037532ae9a8aa425fc6bb71b176809177
+FROM webhippie/nginx:latest-arm@sha256:92453ad781c850cb6a0c4e485decccb642adc1925f974fb74fff7c54330f3a29
 
 VOLUME ["/etc/php7/custom.d"]
 EXPOSE 8080
