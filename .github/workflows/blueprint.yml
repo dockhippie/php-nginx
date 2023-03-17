@@ -33,6 +33,7 @@ jobs:
           images: |
             webhippie/REPO
             quay.io/webhippie/REPO
+            ghcr.io/dockhippie/REPO
           labels: |
             org.opencontainers.image.vendor=Webhippie
             maintainer=Thomas Boerger <thomas@webhippie.de>
@@ -62,6 +63,15 @@ jobs:
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
 
+      - name: Ghcr login
+        id: login3
+        uses: docker/login-action@v2
+        if: github.event_name != 'pull_request'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build amd64
         id: amd64
         uses: docker/build-push-action@v3
@@ -75,6 +85,7 @@ jobs:
           tags: |
             webhippie/REPO:VERSION-amd64
             quay.io/webhippie/REPO:VERSION-amd64
+            ghcr.io/dockhippie/REPO:VERSION-amd64
 
       - name: Build arm64
         id: arm64
@@ -89,6 +100,7 @@ jobs:
           tags: |
             webhippie/REPO:VERSION-arm64
             quay.io/webhippie/REPO:VERSION-arm64
+            ghcr.io/dockhippie/REPO:VERSION-arm64
 
       - name: Build arm
         id: arm
@@ -103,6 +115,7 @@ jobs:
           tags: |
             webhippie/REPO:VERSION-arm
             quay.io/webhippie/REPO:VERSION-arm
+            ghcr.io/dockhippie/REPO:VERSION-arm
 
       - name: Hub manifest
         id: manifest1
@@ -126,6 +139,18 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           template: quay.io/webhippie/REPO:VERSION-ARCH
           target: quay.io/webhippie/REPO:VERSION
+          ignore_missing: true
+
+      - name: Ghcr manifest
+        id: manifest3
+        uses: actionhippie/manifest@v1
+        if: github.event_name != 'pull_request'
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          template: ghcr.io/dockhippie/REPO:VERSION-ARCH
+          target: ghcr.io/dockhippie/REPO:VERSION
           ignore_missing: true
 
 ...
