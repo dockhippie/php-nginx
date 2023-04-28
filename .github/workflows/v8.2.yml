@@ -1,19 +1,19 @@
 ---
-name: FOLDER
+name: v8.2
 
 "on":
   push:
     branches:
       - master
     paths:
-      - FOLDER/*
-      - .github/workflows/FOLDER.yml
+      - v8.2/*
+      - .github/workflows/v8.2.yml
   pull_request:
     branches:
       - master
     paths:
-      - FOLDER/*
-      - .github/workflows/FOLDER.yml
+      - v8.2/*
+      - .github/workflows/v8.2.yml
   workflow_dispatch:
 
 jobs:
@@ -31,9 +31,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           images: |
-            webhippie/REPO
-            quay.io/webhippie/REPO
-            ghcr.io/dockhippie/REPO
+            webhippie/php-nginx
+            quay.io/webhippie/php-nginx
+            ghcr.io/dockhippie/php-nginx
           labels: |
             org.opencontainers.image.vendor=Webhippie
             maintainer=Thomas Boerger <thomas@webhippie.de>
@@ -77,45 +77,45 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: FOLDER/
-          file: FOLDER/Dockerfile.amd64
+          context: v8.2/
+          file: v8.2/Dockerfile.amd64
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            webhippie/REPO:VERSION-amd64
-            quay.io/webhippie/REPO:VERSION-amd64
-            ghcr.io/dockhippie/REPO:VERSION-amd64
+            webhippie/php-nginx:8.2-amd64
+            quay.io/webhippie/php-nginx:8.2-amd64
+            ghcr.io/dockhippie/php-nginx:8.2-amd64
 
       - name: Build arm64
         id: arm64
         uses: docker/build-push-action@v3
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: FOLDER/
-          file: FOLDER/Dockerfile.arm64
+          context: v8.2/
+          file: v8.2/Dockerfile.arm64
           platforms: linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            webhippie/REPO:VERSION-arm64
-            quay.io/webhippie/REPO:VERSION-arm64
-            ghcr.io/dockhippie/REPO:VERSION-arm64
+            webhippie/php-nginx:8.2-arm64
+            quay.io/webhippie/php-nginx:8.2-arm64
+            ghcr.io/dockhippie/php-nginx:8.2-arm64
 
       - name: Build arm
         id: arm
         uses: docker/build-push-action@v3
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: FOLDER/
-          file: FOLDER/Dockerfile.arm
-          platforms: linux/arm/v7
+          context: v8.2/
+          file: v8.2/Dockerfile.arm
+          platforms: linux/arm/v6
           push: ${{ github.event_name != 'pull_request' }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            webhippie/REPO:VERSION-arm
-            quay.io/webhippie/REPO:VERSION-arm
-            ghcr.io/dockhippie/REPO:VERSION-arm
+            webhippie/php-nginx:8.2-arm
+            quay.io/webhippie/php-nginx:8.2-arm
+            ghcr.io/dockhippie/php-nginx:8.2-arm
 
       - name: Hub manifest
         id: manifest1
@@ -124,9 +124,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          template: webhippie/REPO:VERSION-ARCH
-          target: webhippie/REPO:VERSION
+          platforms: linux/amd64,linux/arm64,linux/arm/v6
+          template: webhippie/php-nginx:8.2-ARCH
+          target: webhippie/php-nginx:8.2
           ignore_missing: true
 
       - name: Quay manifest
@@ -136,9 +136,9 @@ jobs:
         with:
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          template: quay.io/webhippie/REPO:VERSION-ARCH
-          target: quay.io/webhippie/REPO:VERSION
+          platforms: linux/amd64,linux/arm64,linux/arm/v6
+          template: quay.io/webhippie/php-nginx:8.2-ARCH
+          target: quay.io/webhippie/php-nginx:8.2
           ignore_missing: true
 
       - name: Ghcr manifest
@@ -148,9 +148,9 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          template: ghcr.io/dockhippie/REPO:VERSION-ARCH
-          target: ghcr.io/dockhippie/REPO:VERSION
+          platforms: linux/amd64,linux/arm64,linux/arm/v6
+          template: ghcr.io/dockhippie/php-nginx:8.2-ARCH
+          target: ghcr.io/dockhippie/php-nginx:8.2
           ignore_missing: true
 
 ...

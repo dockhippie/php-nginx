@@ -1,0 +1,19 @@
+FROM ghcr.io/dockhippie/nginx:latest-arm64@sha256:4c640c5f95f2933f214f6ad173d415cda852644393220cd475ac0994e82e8a37
+
+WORKDIR /srv/www
+CMD ["/usr/bin/container"]
+
+RUN apk update && \
+  apk upgrade && \
+  apk add php81 php81-fpm php81-ctype php81-curl php81-dom php81-gd php81-iconv php81-intl php81-mysqli php81-mysqlnd php81-openssl php81-opcache php81-pdo php81-pdo_mysql php81-pdo_pgsql php81-pdo_sqlite php81-pear php81-pgsql php81-phar php81-sqlite3 php81-xml php81-zip php81-mbstring php81-simplexml php81-tokenizer php81-xmlwriter php81-fileinfo php81-soap php81-pecl-apcu php81-pecl-redis php81-pecl-memcached git && \
+  ln -sf /usr/bin/php81 /usr/bin/php && \
+  rm -rf /var/cache/apk/* /etc/php81/* && \
+  mv /srv/www/index.html /srv/www/index.php
+
+VOLUME ["/etc/php81/custom.d"]
+EXPOSE 8080
+
+COPY ./overlay /
+
+RUN curl -sSLo - https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
+  curl -sSLo /etc/php81/browscap.ini http://browscap.org/stream\?q=PHP_BrowsCapINI

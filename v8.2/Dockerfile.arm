@@ -1,0 +1,19 @@
+FROM ghcr.io/dockhippie/nginx:latest-arm@sha256:03c6724843bb16cdee4c92d369245ca90edd8e5deda6b5730b6fc7e2c5bc09ee
+
+WORKDIR /srv/www
+CMD ["/usr/bin/container"]
+
+RUN apk update && \
+  apk upgrade && \
+  apk add php82 php82-fpm php82-ctype php82-curl php82-dom php82-gd php82-iconv php82-intl php82-mysqli php82-mysqlnd php82-openssl php82-opcache php82-pdo php82-pdo_mysql php82-pdo_pgsql php82-pdo_sqlite php82-pear php82-pgsql php82-phar php82-sqlite3 php82-xml php82-zip php82-mbstring php82-simplexml php82-tokenizer php82-xmlwriter php82-fileinfo php82-soap php82-pecl-apcu php82-pecl-redis php82-pecl-memcached git && \
+  ln -sf /usr/bin/php82 /usr/bin/php && \
+  rm -rf /var/cache/apk/* /etc/php82/* && \
+  mv /srv/www/index.html /srv/www/index.php
+
+VOLUME ["/etc/php82/custom.d"]
+EXPOSE 8080
+
+COPY ./overlay /
+
+RUN curl -sSLo - https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
+  curl -sSLo /etc/php82/browscap.ini http://browscap.org/stream\?q=PHP_BrowsCapINI
