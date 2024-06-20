@@ -1,4 +1,4 @@
-FROM ghcr.io/dockhippie/nginx:latest-amd64@sha256:14e3b19bec034dd5dfe416690676cebd53ab898f638166838e4c73f75e54339b
+FROM ghcr.io/dockhippie/nginx:latest-amd64@sha256:d642702816846058829b0549fdc0b9434e5d116226dfdd9fe0eb54956ef95902
 
 WORKDIR /srv/www
 CMD ["/usr/bin/container"]
