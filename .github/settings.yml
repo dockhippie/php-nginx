@@ -1,7 +1,7 @@
 ---
 repository:
   name: php-nginx
-  description: Docker images for php-nginx
+  description: Docker images for Nginx PHP
   topics: docker, image
 
   private: false
